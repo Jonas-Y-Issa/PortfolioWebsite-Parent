@@ -1,0 +1,18 @@
+bin/
+obj/
+.vscode/
+
+Django-Portfolio/env/
+Django-Portfolio/websiteVEnv/
+
+DevOps/Docker
+DevOps/Terraform
+DevOps/ASPPortfolio.service
+DevOps/systemd
+DevOps/azure-pipelines.yml
+
+svgs/
+
+./LICENSE
+./README.md
+./README (copy 1).md

@@ -1,0 +1,89 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/ASP-Portfolio/ASPPortfolio.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary;ForceNoAlign"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "Clean Up",
+            "type": "shell",
+            "command": "docker system prune"
+        },
+        {
+            "label": "Push to Registry",
+            "type": "shell",
+            "command": "docker push 192.168.1.102:5000/asp-portfolio-image:latest && docker push 192.168.1.102:5000/nginx-image:latest && docker push 192.168.1.102:5000/django-portfolio-image:latest",
+        },
+        {
+            "label": "Tag Images",
+            "type": "shell",
+            "command": "docker tag asp-portfolio-image:latest 192.168.1.102:5000/asp-portfolio-image && docker tag nginx-image:latest 192.168.1.102:5000/nginx-image && docker tag django-portfolio-image:latest 192.168.1.102:5000/django-portfolio-image",
+        },
+        {
+            "label": "Save Images",
+            "type": "shell",
+            "command": "docker save -o ${workspaceFolder}/DevOps/Docker/images/asp-portfolio-image.tar asp-portfolio-image:latest && docker save -o ${workspaceFolder}/DevOps/Docker/images/nginx-image.tar nginx-image:latest && docker save -o ${workspaceFolder}/DevOps/Docker/images/django-portfolio-image.tar django-portfolio-image:latest",
+        },
+        {
+            "label": "Compose",
+            "type": "shell",
+            "command": "docker",
+            "args": [
+                "compose",
+                "-f",
+                "${workspaceFolder}/DevOps/Docker/docker-compose.build.yml",
+                "build",
+                "--no-cache"
+            ]
+        },
+        {
+            "label": "Pipeline",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "Build",
+                "Compose",
+                "Save Images",
+                "Tag Images", 
+                "Push to Registry",
+                "Clean Up"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+        },
+        // {
+        //     "label": "publish",
+        //     "command": "dotnet",
+        //     "type": "process",
+        //     "args": [
+        //         "publish",
+        //         "${workspaceFolder}/ASP-Portfolio/ASPPortfolio.csproj",
+        //         "/property:GenerateFullPaths=true",
+        //         "/consoleloggerparameters:NoSummary;ForceNoAlign"
+        //     ],
+        //     "problemMatcher": "$msCompile"
+        // },
+        {
+            "label": "watch",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "watch",
+                "run",
+                "--project",
+                "${workspaceFolder}/ASP-Portfolio/ASPPortfolio.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+    ]
+}

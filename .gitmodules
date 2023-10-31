@@ -1,0 +1,9 @@
+[submodule "ASP-Portfolio"]
+	path = ASP-Portfolio
+	url = ./ASP-Portfolio
+[submodule "DevOps"]
+	path = DevOps
+	url = ./DevOps/
+[submodule "Django-Portfolio"]
+	path = Django-Portfolio
+	url = ./Django-Portfolio/
