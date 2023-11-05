@@ -14,3 +14,9 @@ Azure Terraform Pipeline
 WireGuard  
 Docker Database  
 What is gRPC
+How to populate and update db
+```Shell
+dotnet tool install --global dotnet-ef
+dotnet ef migrations add CreateMyEntityTable
+dotnet ef database update
+```
