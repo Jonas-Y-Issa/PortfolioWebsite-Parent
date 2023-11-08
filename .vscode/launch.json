@@ -27,9 +27,19 @@
             }
         },
         {
-            "name": ".NET Core Attach",
-            "type": "coreclr",
-            "request": "attach"
+            "name": "Django: Run Server",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/Django-Portfolio/manage.py",
+            "args": [
+                "runserver",
+                "0.0.0.0:8000",
+                "--noreload"
+            ],
+            "python": "${workspaceFolder}/env/bin/python",
+            "django": true,
+            "justMyCode": true,
+            "console": "integratedTerminal"
         }
     ]
 }
